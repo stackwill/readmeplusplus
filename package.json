@@ -1,0 +1,21 @@
+{
+  "name": "readmeplusplus",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "render": "bun run scripts/render-readme.ts",
+    "render:wide": "bun run scripts/render-readme.ts --width 1440 --scale 2"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@primer/primitives": "^11.6.0",
+    "@types/markdown-it": "^14.1.2",
+    "markdown-it": "^14.1.1",
+    "playwright": "^1.59.1"
+  }
+}
