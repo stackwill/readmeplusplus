@@ -234,21 +234,21 @@ body {
 
 .readme-canvas {
   width: 100%;
-  padding: 64px;
+  padding: 64px 36px;
   overflow: hidden;
   background: var(--bgColor-default);
 }
 
 .readme-canvas--top {
-  padding-bottom: 24px;
+  padding-bottom: 8px;
 }
 
 .readme-canvas--bottom {
-  padding-top: 12px;
+  padding-top: 0;
 }
 
 .readme-canvas--bottom .stat-strip {
-  margin-top: 24px;
+  margin-top: 18px;
 }
 
 .markdown-body {
@@ -257,7 +257,7 @@ body {
 }
 
 .markdown-body > * {
-  max-width: 1080px;
+  max-width: 1208px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -272,7 +272,7 @@ body {
 
 .markdown-body h1 {
   margin: 0 0 24px;
-  max-width: 980px;
+  max-width: 1208px;
   font-size: 74px;
   font-weight: 800;
 }
@@ -333,8 +333,8 @@ body {
 }
 
 .hero {
-  max-width: 1080px;
-  margin: 44px auto 54px;
+  max-width: 1208px;
+  margin: 44px auto 24px;
   padding: 42px;
   border: 1px solid var(--borderColor-default);
   border-radius: 8px;
