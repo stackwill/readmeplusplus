@@ -94,17 +94,17 @@ ${rendererCss()}
 
 async function writeReadme() {
   const readmePath = resolve(root, "README.md");
-  const body = `# readmeplusplus
+  const body = `# convertparty
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/readme-dark.png">
   <source media="(prefers-color-scheme: light)" srcset="./assets/readme-light.png">
-  <img alt="Rendered README++ preview" src="./assets/readme-light.png" width="100%">
+  <img alt="Rendered convertparty README" src="./assets/readme-light.png" width="100%">
 </picture>
 
 ## Editing
 
-Edit \`content/readme.md\`, then regenerate the README images:
+Edit \`content/readme.md\`, then regenerate the README images and this wrapper:
 
 \`\`\`bash
 bun run render
