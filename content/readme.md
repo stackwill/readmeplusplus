@@ -1,54 +1,53 @@
 # convertparty
 
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&height=240&color=0:1f3a5f,45:2c6e49,100:e9c46a&text=convertparty&fontAlignY=38&fontSize=56&desc=copyparty-inspired%20bulk%20conversion%20appliance&descAlignY=58&descAlign=50&fontColor=f8fafc&animation=fadeIn" alt="convertparty header" />
-</p>
+<section class="hero">
+  <p class="eyebrow">Linux-first conversion appliance</p>
+  <p><strong>Upload loose files, choose one output format, watch the queue, and download completed results.</strong></p>
+  <p><code>convertparty</code> is a small bulk conversion appliance with a bundled runtime, copyparty-inspired startup ergonomics, and an intentionally narrow self-hosted shape.</p>
+</section>
 
-<p align="center">
-  <img alt="Python 3.12+" src="https://img.shields.io/badge/python-3.12%2B-1f3a5f?style=for-the-badge&logo=python&logoColor=ffd343">
-  <img alt="Linux-first" src="https://img.shields.io/badge/platform-linux--first-2c6e49?style=for-the-badge&logo=linux&logoColor=white">
-  <img alt="Self-extracting release" src="https://img.shields.io/badge/release-python%20sfx-e9c46a?style=for-the-badge&logoColor=1f2933">
-</p>
-
-<p align="center">
-  <strong>A small Linux-first conversion appliance with a bundled runtime.</strong><br>
-  Upload loose files, choose one output format, watch the queue, download completed results.
-</p>
-
-`convertparty` is a Linux-first bulk file conversion appliance with a plain operational web UI and a self-extracting Python release artifact. It takes heavy inspiration from `copyparty`'s startup experience, terminal ergonomics, utility-first HTML, and appliance-like feel, but it is built from scratch around conversion jobs instead of file sharing.
+<div class="stat-strip">
+  <strong>3.12+</strong><span>Python runtime</span>
+  <strong>11</strong><span>conversion domains</span>
+  <strong>117</strong><span>local tests passing at the time of writing</span>
+</div>
 
 > Core rule: if a conversion path is presented as supported, the release artifact is expected to contain every runtime dependency needed to execute that path. No host-installed converters should be required for supported features.
 
 ## Project status
 
-`convertparty` is currently best described as a usable, tested, intentionally narrow local utility rather than a broad self-hosted platform.
+`convertparty` is best described as a usable, tested, intentionally narrow local utility rather than a broad hosted conversion platform.
 
-- The current browser flow works: upload loose files, choose a shared output, submit a batch, watch progress, download outputs.
+- The browser flow works: upload loose files, choose a shared output, submit a batch, watch progress, download outputs.
 - The Linux SFX build path exists and bundles the converter stack needed for supported routes.
-- The codebase is compact and active enough to extend, but the product scope is intentionally conservative.
-- The project is not trying to outgrow into a general hosted conversion service or chase every format forever.
-- Local test status at the time of writing: `117 passed`.
+- The codebase is compact enough to extend, but the product scope is intentionally conservative.
+- The project is not trying to become a general hosted conversion service or chase every format forever.
 
 ## Why this exists
 
-Most conversion tools are either:
+Most conversion tools are either single-purpose wrappers, developer-facing CLIs that assume you already manage the toolchain, or web services that move files off the machine.
 
-- single-purpose wrappers around one converter
-- developer-facing CLIs that assume you already manage the toolchain
-- web services that move files off the machine
-
-`convertparty` aims at a different shape:
-
-- appliance-style startup
-- website-only interaction
-- batch conversion as the default workflow
-- bundled converter stack
-- persistent completed outputs until delivery
-- minimal operational friction
+`convertparty` aims at a different shape: appliance-style startup, website-only interaction, batch conversion as the default workflow, a bundled converter stack, persistent completed outputs until delivery, and minimal operational friction.
 
 If `copyparty` is "bring your own browser and immediately have a useful local file appliance," `convertparty` is the same instinct pointed at conversion.
 
-The point of the project is less "be the biggest converter" and more "ship an honest appliance artifact that really contains what it claims to support."
+<section class="feature-grid">
+  <article>
+    <span>01</span>
+    <h3>Bundle honestly</h3>
+    <p>Supported routes should work from the release artifact itself, not from lucky host state.</p>
+  </article>
+  <article>
+    <span>02</span>
+    <h3>Batch by default</h3>
+    <p>One upload batch produces one shared output format with per-file success and failure states.</p>
+  </article>
+  <article>
+    <span>03</span>
+    <h3>Stay appliance-shaped</h3>
+    <p>The UI, terminal banner, QR startup, and release flow are built around local utility.</p>
+  </article>
+</section>
 
 ## Highlights
 
@@ -66,28 +65,25 @@ When the full bundled toolchain is staged, the registry currently exposes suppor
 
 | Domain | Backing tool | What it covers |
 | --- | --- | --- |
-| Audio | `ffmpeg` | Common audio transcodes such as `wav -> mp3`, `flac -> opus`, `m4a -> wav` |
-| Video | `ffmpeg` | Container and media conversion such as `mp4 -> webm`, `mov -> gif`, `mkv -> mp3` |
-| Images | `ImageMagick`, RAW adapter | Raster and image export such as `png -> webp`, `heic -> jpg`, `nef -> tiff` |
-| Documents | `pandoc`, `tectonic`, `pdftotext`, `pdftocairo` | Text and document conversion such as `md -> pdf`, `docbook -> epub`, `pdf -> txt`, `pdf -> png` |
-| Office docs | `LibreOffice` | Office-oriented routes such as `docx -> pdf`, `xlsx -> csv`, `pptx -> html` |
-| Ebooks | `Calibre` | Ebook conversion such as `epub -> azw3`, `mobi -> epub`, `pdf -> fb2` |
-| Archives | `7z` | Archive-to-archive repacking such as `zip -> tar.gz`, `rar -> 7z`, `tar.xz -> zip` |
-| OCR | `tesseract` | Image-to-text extraction such as `png -> txt`, `tiff -> hocr`, `jpg -> tsv` |
+| Audio | `ffmpeg` | `wav -> mp3`, `flac -> opus`, `m4a -> wav` |
+| Video | `ffmpeg` | `mp4 -> webm`, `mov -> gif`, `mkv -> mp3` |
+| Images | `ImageMagick`, RAW adapter | `png -> webp`, `heic -> jpg`, `nef -> tiff` |
+| Documents | `pandoc`, `tectonic`, `pdftotext`, `pdftocairo` | `md -> pdf`, `docbook -> epub`, `pdf -> txt`, `pdf -> png` |
+| Office docs | `LibreOffice` | `docx -> pdf`, `xlsx -> csv`, `pptx -> html` |
+| Ebooks | `Calibre` | `epub -> azw3`, `mobi -> epub`, `pdf -> fb2` |
+| Archives | `7z` | `zip -> tar.gz`, `rar -> 7z`, `tar.xz -> zip` |
+| OCR | `tesseract` | `png -> txt`, `tiff -> hocr`, `jpg -> tsv` |
 | Structured data | `jq`/`yq`/`xq`/`tomlq` | `json <-> yaml`, `toml -> json`, `xml -> yaml` |
 | Tabular data | `DuckDB` | `csv <-> parquet`, `jsonl -> tsv`, `parquet -> json` |
 
 Representative format families currently wired into the registry:
 
-- Audio inputs include `aac`, `flac`, `m4a`, `mp3`, `ogg`, `opus`, `wav`, `wma`
-- Video inputs include `avi`, `gif`, `mkv`, `mov`, `mp4`, `mpeg`, `ts`, `webm`, `wmv`
-- Image inputs include `avif`, `bmp`, `gif`, `heic`, `jpeg`, `jpg`, `jp2`, `jxl`, `png`, `svg`, `tiff`, `webp`
-- Document inputs include `docx`, `epub`, `html`, `ipynb`, `latex`, `markdown`, `md`, `odt`, `org`, `rst`, `rtf`, `txt`, `typst`
-- Office-specific inputs include `doc`, `docx`, `odt`, `xls`, `xlsx`, `ods`, `ppt`, `pptx`, `odp`
-- Ebook inputs include `azw3`, `cbz`, `chm`, `djvu`, `epub`, `fb2`, `mobi`, `odt`, `pdf`, `rtf`
-- Archive inputs include `7z`, `zip`, `rar`, `tar`, `tar.gz`, `tar.xz`, `tar.bz2`, `tar.zst`, `gz`, `xz`, `bz2`, `zst`
-- Structured inputs include `json`, `yaml`, `yml`, `xml`, `toml`
-- Tabular inputs include `csv`, `tsv`, `json`, `jsonl`, `parquet`
+- Audio: `aac`, `flac`, `m4a`, `mp3`, `ogg`, `opus`, `wav`, `wma`
+- Video: `avi`, `gif`, `mkv`, `mov`, `mp4`, `mpeg`, `ts`, `webm`, `wmv`
+- Images: `avif`, `bmp`, `gif`, `heic`, `jpeg`, `jpg`, `jp2`, `jxl`, `png`, `svg`, `tiff`, `webp`
+- Documents: `docx`, `epub`, `html`, `ipynb`, `latex`, `markdown`, `md`, `odt`, `org`, `rst`, `rtf`, `txt`, `typst`
+- Archives: `7z`, `zip`, `rar`, `tar`, `tar.gz`, `tar.xz`, `tar.bz2`, `tar.zst`, `gz`, `xz`, `bz2`, `zst`
+- Data: `json`, `yaml`, `yml`, `xml`, `toml`, `csv`, `tsv`, `jsonl`, `parquet`
 
 The live UI exposes the full route matrix for whatever tool bundle is actually available at runtime.
 
@@ -95,25 +91,15 @@ The live UI exposes the full route matrix for whatever tool bundle is actually a
 
 The main page is a conversion dashboard, not a file browser:
 
-1. Drop one or more loose files into the upload tray
-2. `convertparty` computes the shared output formats for the current selection
-3. Pick one target format
-4. Optionally set route-specific conversion knobs
-5. Submit the batch
-6. Watch progress on the job page
-7. Download outputs one-by-one or as a bundle
+1. Drop one or more loose files into the upload tray.
+2. `convertparty` computes the shared output formats for the current selection.
+3. Pick one target format.
+4. Optionally set route-specific conversion knobs.
+5. Submit the batch.
+6. Watch progress on the job page.
+7. Download outputs one by one or as a bundle.
 
 Completed outputs persist on disk until downloaded or manually removed. If the process restarts while work is active, unfinished tasks are marked failed explicitly on restart rather than silently disappearing.
-
-```mermaid
-flowchart LR
-    A[Upload loose files] --> B[Find shared outputs]
-    B --> C[Create batch job]
-    C --> D[Resolve one direct adapter path per file]
-    D --> E[Run bundled toolchain]
-    E --> F[Persist completed outputs]
-    F --> G[Direct download or zip bundle]
-```
 
 ## Copyparty influence
 
@@ -174,47 +160,10 @@ bash scripts/build_release.sh
 
 That build currently does the following:
 
-1. Compiles the Python source as a quick sanity check
-2. Stages the native converter toolchain into `build/tools/linux-x86_64`
-3. Bundles Python dependencies needed by the appliance into `build/pylib`
-4. Produces the SFX and payload artifacts in `dist/`
-
-If you want the manual build path:
-
-```bash
-bash scripts/stage_tools.sh
-python scripts/build_sfx.py
-```
-
-## Releasing
-
-Releases are built locally and uploaded manually. There is intentionally no GitHub Actions release pipeline attached to tags.
-
-Build release artifacts and checksums:
-
-```bash
-bash scripts/prepare_release.sh
-```
-
-That produces:
-
-- `dist/convertparty-sfx.py`
-- `dist/payload.tar.gz`
-- `dist/SHA256SUMS.txt`
-
-Then either:
-
-1. Open GitHub's "Draft a new release" page and upload those files manually.
-2. Or use the GitHub CLI:
-
-```bash
-gh release create v0.1.0 \
-  dist/convertparty-sfx.py \
-  dist/payload.tar.gz \
-  dist/SHA256SUMS.txt \
-  --draft \
-  --title v0.1.0
-```
+1. Compiles the Python source as a quick sanity check.
+2. Stages the native converter toolchain into `build/tools/linux-x86_64`.
+3. Bundles Python dependencies needed by the appliance into `build/pylib`.
+4. Produces the SFX and payload artifacts in `dist/`.
 
 ## Release artifact behavior
 
@@ -230,10 +179,7 @@ Running the built SFX on Linux should feel like an appliance boot:
 
 After extraction, the app runs `convertparty.main` with the staged bundle injected via `--bundle-dir`.
 
-Default runtime state is kept under:
-
-- Linux source/dev runs: `~/.local/state/convertparty` unless `--state-dir` is supplied
-- Linux SFX runs: same app-level state model, with the staged bundle extracted separately by the bootstrap
+Default runtime state is kept under `~/.local/state/convertparty` unless `--state-dir` is supplied. SFX runs use the same app-level state model, with the staged bundle extracted separately by the bootstrap.
 
 ## Bundled runtime expectations
 
@@ -254,49 +200,9 @@ The appliance currently stages or wraps the following tools for release builds:
 - `tomlq`
 - `dcraw` or `dcraw_emu`
 
-Some of these need packaging-specific wrappers so the bundle stays relocatable:
-
-- `soffice` is wrapped so LibreOffice can run from the staged bundle
-- `ebook-convert` is wrapped with the right Calibre Python/resource paths
-- `yq`, `xq`, and `tomlq` are exposed through bundled Python modules in `build/pylib`
-- ImageMagick and Tectonic cache/config paths are redirected into the extracted bundle
+Some of these need packaging-specific wrappers so the bundle stays relocatable. `soffice` runs from the staged bundle, `ebook-convert` gets the right Calibre Python/resource paths, `yq`/`xq`/`tomlq` are exposed through bundled Python modules, and ImageMagick and Tectonic cache/config paths are redirected into the extracted bundle.
 
 This is the appliance contract in practice: supported routes should come from bundled capability, not lucky host state.
-
-## Project layout
-
-```text
-convertparty/
-├── convertparty/
-│   ├── main.py               # CLI startup, banner, and QR output
-│   ├── app.py                # Runtime wiring
-│   ├── web.py                # Routes, forms, downloads, HTML rendering
-│   ├── jobs.py               # Job models, queue, restart reconciliation
-│   ├── storage.py            # Upload and output persistence
-│   ├── convert.py            # Route resolution and adapter execution
-│   ├── registry.py           # Format matrix and adapter registry
-│   ├── conversion_options.py # Curated per-route option schemas
-│   └── adapters/             # Tool-specific conversion backends
-├── scripts/
-│   ├── stage_tools.sh        # Stage native toolchain into the release bundle
-│   ├── build_sfx.py          # Build the self-extracting Python release
-│   ├── build_release.sh      # End-to-end release build
-│   ├── prepare_release.sh    # Build artifacts, write checksums, print release steps
-│   └── run_dev.sh            # Local dev launcher
-└── tests/                    # Behavioral coverage for web flow, registry, and SFX
-```
-
-## Current status
-
-`convertparty` is usable today, but it is intentionally scoped:
-
-- the core product loop is present and works
-- the release artifact model exists
-- the bundled toolchain staging logic is real
-- the route matrix is broad enough to be useful
-- the UI is intentionally operational rather than polished like a consumer app
-
-The next bar is not "add more extensions forever." It is keeping the shipped artifact honest: every claimed route should keep honoring the appliance contract from the built SFX itself.
 
 ## Development notes
 

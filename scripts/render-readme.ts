@@ -193,10 +193,7 @@ body {
   min-height: 720px;
   padding: 64px;
   overflow: hidden;
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--bgColor-accent-muted) 62%, transparent), transparent 36%),
-    radial-gradient(circle at 82% 10%, color-mix(in srgb, var(--bgColor-success-muted) 68%, transparent), transparent 32%),
-    var(--bgColor-default);
+  background: var(--bgColor-default);
 }
 
 .markdown-body {
@@ -247,7 +244,7 @@ body {
   border: 1px solid var(--borderColor-default);
   border-left: 6px solid var(--fgColor-accent);
   border-radius: 8px;
-  background: color-mix(in srgb, var(--bgColor-muted) 76%, transparent);
+  background: transparent;
 }
 
 .markdown-body blockquote p {
@@ -258,8 +255,9 @@ body {
 
 .markdown-body code {
   padding: 0.16em 0.36em;
+  border: 1px solid var(--borderColor-muted);
   border-radius: 6px;
-  background: var(--bgColor-neutral-muted);
+  background: transparent;
   color: var(--fgColor-default);
   font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", monospace;
   font-size: 0.9em;
@@ -271,7 +269,7 @@ body {
   overflow: hidden;
   border: 1px solid var(--borderColor-default);
   border-radius: 8px;
-  background: var(--bgColor-inset);
+  background: transparent;
 }
 
 .markdown-body pre code {
@@ -285,10 +283,7 @@ body {
   padding: 42px;
   border: 1px solid var(--borderColor-default);
   border-radius: 8px;
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--bgColor-accent-muted) 78%, transparent), transparent 52%),
-    color-mix(in srgb, var(--bgColor-muted) 82%, transparent);
-  box-shadow: 0 18px 58px color-mix(in srgb, var(--fgColor-default) 12%, transparent);
+  background: transparent;
 }
 
 .hero p {
@@ -317,7 +312,7 @@ body {
   padding: 28px;
   border: 1px solid var(--borderColor-default);
   border-radius: 8px;
-  background: color-mix(in srgb, var(--bgColor-muted) 86%, transparent);
+  background: transparent;
 }
 
 .feature-grid span {
@@ -327,8 +322,9 @@ body {
   width: 48px;
   height: 48px;
   border-radius: 8px;
-  background: var(--bgColor-accent-emphasis);
-  color: var(--fgColor-onEmphasis);
+  border: 1px solid var(--borderColor-accent-emphasis);
+  background: transparent;
+  color: var(--fgColor-accent);
   font-weight: 800;
 }
 
@@ -345,7 +341,7 @@ body {
   padding: 24px;
   border: 1px solid var(--borderColor-default);
   border-radius: 8px;
-  background: var(--bgColor-muted);
+  background: transparent;
 }
 
 .stat-strip strong {
