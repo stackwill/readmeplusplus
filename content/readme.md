@@ -6,6 +6,12 @@
   <p><code>convertparty</code> is a small bulk conversion appliance with a bundled runtime, copyparty-inspired startup ergonomics, and an intentionally narrow self-hosted shape.</p>
 </section>
 
+<!-- readmeplusplus:copyable-install:start -->
+```bash
+curl -fsSL https://example.com/convertparty/install.sh | bash
+```
+<!-- readmeplusplus:copyable-install:end -->
+
 <div class="stat-strip">
   <strong>3.12+</strong><span>Python runtime</span>
   <strong>11</strong><span>conversion domains</span>

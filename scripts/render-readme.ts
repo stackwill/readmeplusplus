@@ -1,7 +1,7 @@
 import MarkdownIt from "markdown-it";
 import { chromium, type Browser } from "playwright";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { dirname, resolve } from "node:path";
+import { resolve } from "node:path";
 
 type Theme = "light" | "dark";
 
@@ -12,12 +12,20 @@ type Options = {
   scale: number;
 };
 
+type Segment = {
+  name: "top" | "bottom";
+  markdown: string;
+};
+
 const defaultOptions: Options = {
   input: "content/readme.md",
   outDir: "assets",
   width: 1280,
   scale: 2,
 };
+
+const splitStartMarker = "<!-- readmeplusplus:copyable-install:start -->";
+const splitEndMarker = "<!-- readmeplusplus:copyable-install:end -->";
 
 const markdown = new MarkdownIt({
   html: true,
@@ -38,41 +46,49 @@ const primerDarkCss = await readFile(
   "utf8",
 );
 const source = await readFile(inputPath, "utf8");
-const renderedMarkdown = markdown.render(source);
+const splitReadme = splitSource(source);
+const segments: Segment[] = [
+  { name: "top", markdown: splitReadme.top },
+  { name: "bottom", markdown: splitReadme.bottom },
+];
 
 await mkdir(outDir, { recursive: true });
 
 const browser = await chromium.launch();
 try {
-  await renderTheme(browser, "light");
-  await renderTheme(browser, "dark");
+  for (const segment of segments) {
+    await renderTheme(browser, "light", segment);
+    await renderTheme(browser, "dark", segment);
+  }
 } finally {
   await browser.close();
 }
 
 await writeReadme();
 
-console.log(`Rendered ${options.input} to ${options.outDir}/readme-light.png`);
-console.log(`Rendered ${options.input} to ${options.outDir}/readme-dark.png`);
-console.log("Updated README.md with GitHub light/dark image switching.");
+console.log(`Rendered ${options.input} to ${options.outDir}/readme-top-light.png`);
+console.log(`Rendered ${options.input} to ${options.outDir}/readme-top-dark.png`);
+console.log(`Rendered ${options.input} to ${options.outDir}/readme-bottom-light.png`);
+console.log(`Rendered ${options.input} to ${options.outDir}/readme-bottom-dark.png`);
+console.log("Updated README.md with split image switching and copyable install command.");
 
-async function renderTheme(browser: Browser, theme: Theme) {
+async function renderTheme(browser: Browser, theme: Theme, segment: Segment) {
   const page = await browser.newPage({
-    viewport: { width: options.width, height: 720 },
+    viewport: { width: options.width, height: 1 },
     deviceScaleFactor: options.scale,
   });
 
-  await page.setContent(documentFor(theme), { waitUntil: "networkidle" });
+  await page.setContent(documentFor(theme, segment), { waitUntil: "networkidle" });
   await page.locator(".readme-canvas").waitFor();
   await page.screenshot({
-    path: resolve(outDir, `readme-${theme}.png`),
+    path: resolve(outDir, `readme-${segment.name}-${theme}.png`),
     fullPage: true,
     animations: "disabled",
   });
   await page.close();
 }
 
-function documentFor(theme: Theme) {
+function documentFor(theme: Theme, segment: Segment) {
   return `<!doctype html>
 <html lang="en" data-color-mode="${theme}" data-${theme}-theme="${theme}">
 <head>
@@ -85,8 +101,8 @@ ${rendererCss()}
 </style>
 </head>
 <body>
-  <main class="readme-canvas markdown-body">
-    ${renderedMarkdown}
+  <main class="readme-canvas readme-canvas--${segment.name} markdown-body">
+    ${markdown.render(segment.markdown)}
   </main>
 </body>
 </html>`;
@@ -94,12 +110,18 @@ ${rendererCss()}
 
 async function writeReadme() {
   const readmePath = resolve(root, "README.md");
-  const body = `# convertparty
+  const body = `<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/readme-top-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="./assets/readme-top-light.png">
+  <img alt="Rendered convertparty README header" src="./assets/readme-top-light.png" width="100%">
+</picture>
+
+${splitReadme.installBlock}
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/readme-dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="./assets/readme-light.png">
-  <img alt="Rendered convertparty README" src="./assets/readme-light.png" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/readme-bottom-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="./assets/readme-bottom-light.png">
+  <img alt="Rendered convertparty README details" src="./assets/readme-bottom-light.png" width="100%">
 </picture>
 
 ## Editing
@@ -114,6 +136,28 @@ Text and links inside the image are not selectable or clickable. Put anything in
 `;
 
   await writeFile(readmePath, body, "utf8");
+}
+
+function splitSource(source: string) {
+  const start = source.indexOf(splitStartMarker);
+  const end = source.indexOf(splitEndMarker);
+
+  if (start === -1 || end === -1 || end < start) {
+    throw new Error(
+      `Expected ${options.input} to contain ${splitStartMarker} and ${splitEndMarker}.`,
+    );
+  }
+
+  const installBlock = source
+    .slice(start + splitStartMarker.length, end)
+    .trim();
+  const bottomStart = end + splitEndMarker.length;
+
+  return {
+    top: source.slice(0, start).trim(),
+    installBlock,
+    bottom: source.slice(bottomStart).trim(),
+  };
 }
 
 function parseArgs(args: string[]): Options {
@@ -190,10 +234,21 @@ body {
 
 .readme-canvas {
   width: 100%;
-  min-height: 720px;
   padding: 64px;
   overflow: hidden;
   background: var(--bgColor-default);
+}
+
+.readme-canvas--top {
+  padding-bottom: 24px;
+}
+
+.readme-canvas--bottom {
+  padding-top: 12px;
+}
+
+.readme-canvas--bottom .stat-strip {
+  margin-top: 24px;
 }
 
 .markdown-body {

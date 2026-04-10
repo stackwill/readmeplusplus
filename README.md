@@ -1,7 +1,17 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/readme-dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="./assets/readme-light.png">
-  <img alt="Rendered convertparty README" src="./assets/readme-light.png" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/readme-top-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="./assets/readme-top-light.png">
+  <img alt="Rendered convertparty README header" src="./assets/readme-top-light.png" width="100%">
+</picture>
+
+```bash
+curl -fsSL https://example.com/convertparty/install.sh | bash
+```
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/readme-bottom-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="./assets/readme-bottom-light.png">
+  <img alt="Rendered convertparty README details" src="./assets/readme-bottom-light.png" width="100%">
 </picture>
 
 ## Editing
